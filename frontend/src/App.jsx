@@ -403,10 +403,6 @@ export default function App() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  const [mockQuestions, setMockQuestions] = useState([])
-  const [mockLoading, setMockLoading] = useState(false)
-  const [mockError, setMockError] = useState(null)
-
   useEffect(() => {
     fetch(`${API}/roles`).then(r => r.json()).then(setRoles).catch(() => {})
   }, [])
@@ -469,8 +465,6 @@ export default function App() {
     setError(null)
     setLoading(true)
     setResult(null)
-    setMockQuestions([])
-    setMockError(null)
     try {
       const payload = {
         resume_text: resumeText,
@@ -491,37 +485,6 @@ export default function App() {
       setError(e.message)
     } finally {
       setLoading(false)
-    }
-  }
-
-  const handleMockQuestions = async () => {
-    if (!targetRole.trim()) {
-      setMockError('Please select a target role first.')
-      return
-    }
-    setMockError(null)
-    setMockLoading(true)
-    setMockQuestions([])
-    try {
-      const body = {
-        target_role: targetRole,
-        focus_skills: result ? result.transferable_skills || [] : [],
-      }
-      const res = await fetch(`${API}/mock-questions`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      })
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({}))
-        throw new Error(err.detail || 'Failed to generate mock questions.')
-      }
-      const data = await res.json()
-      setMockQuestions(data.questions || [])
-    } catch (e) {
-      setMockError(e.message)
-    } finally {
-      setMockLoading(false)
     }
   }
 
@@ -698,38 +661,6 @@ export default function App() {
             <Results data={result} />
           </div>
         )}
-
-        <div style={S.section}>
-          <div style={S.sectionTitle}>
-            <span>Mock interview questions</span>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--ink-3)' }}>
-              Based on your target role{result && ' and skills'}
-            </span>
-          </div>
-          <div style={S.card}>
-            {mockError && <div style={S.error}>{mockError}</div>}
-            <button
-              type="button"
-              style={{ ...S.btnSecondary, marginBottom: '0.75rem' }}
-              onClick={handleMockQuestions}
-              disabled={mockLoading || !targetRole}
-            >
-              {mockLoading ? 'Generating questions...' : 'Generate mock interview questions'}
-            </button>
-            {mockQuestions && mockQuestions.length > 0 && (
-              <ol style={{ paddingLeft: '1.25rem', marginTop: '0.5rem', fontSize: '0.9rem', color: 'var(--ink-2)' }}>
-                {mockQuestions.map((q, i) => (
-                  <li key={i} style={{ marginBottom: '0.4rem' }}>{q}</li>
-                ))}
-              </ol>
-            )}
-            {!mockLoading && mockQuestions && mockQuestions.length === 0 && !mockError && (
-              <p style={{ fontSize: '0.85rem', color: 'var(--ink-3)' }}>
-                Choose a target role above, then click the button to generate role-specific mock questions.
-              </p>
-            )}
-          </div>
-        </div>
       </main>
     </div>
   )

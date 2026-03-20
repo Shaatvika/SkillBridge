@@ -2,6 +2,7 @@ import os
 import json
 import re
 import google.generativeai as genai
+from json import JSONDecodeError
 from pathlib import Path
 from dotenv import load_dotenv
 from app.models import AnalyzeResponse, RoadmapItem
@@ -12,6 +13,38 @@ env_file = Path(__file__).parent.parent / ".env"
 load_dotenv(env_file)
 
 DATA_DIR = Path(__file__).parent.parent / "data"
+
+
+def _safe_parse_json(raw: str) -> dict | None:
+    """Best-effort JSON parser for LLM output.
+
+    Tries direct json.loads first; if that fails, attempts to
+    extract the first top-level JSON object substring. Returns
+    None if parsing still fails.
+    """
+
+    if not raw:
+        return None
+
+    raw = raw.strip()
+
+    # First attempt: direct parse
+    try:
+        return json.loads(raw)
+    except JSONDecodeError:
+        pass
+
+    # Heuristic: find the first '{' and last '}' and try that slice
+    start = raw.find("{")
+    end = raw.rfind("}")
+    if start != -1 and end != -1 and end > start:
+        snippet = raw[start : end + 1]
+        try:
+            return json.loads(snippet)
+        except JSONDecodeError:
+            pass
+
+    return None
 
 
 def _load_skills_map() -> dict:
@@ -147,7 +180,10 @@ def _call_gemini(resume_text: str, target_role: str, job_descriptions: list[dict
         raw = re.sub(r"\n?```\s*$", "", raw, flags=re.MULTILINE)
         raw = raw.strip()
 
-        data = json.loads(raw)
+        data = _safe_parse_json(raw)
+        if data is None:
+            print(f"[Gemini API JSON parse error] raw response: {raw[:500]}")
+            return None
 
         roadmap = [RoadmapItem(**item) for item in data.get("roadmap", [])]
 
@@ -165,66 +201,6 @@ def _call_gemini(resume_text: str, target_role: str, job_descriptions: list[dict
     except Exception as e:
         print(f"[Gemini API error] {e}")
         return None
-
-
-def _build_mock_questions_prompt(target_role: str, skills: list[str] | None = None) -> str:
-    skills_part = ", ".join(skills) if skills else ""
-    return f"""
-You are an experienced technical interviewer.
-
-Generate a focused list of 8 to 10 interview questions for a candidate interviewing for the role "{target_role}".
-If a list of skills is provided, bias the questions towards those skills while still covering core fundamentals for the role.
-
-Return ONLY a single JSON object of the form:
-{{
-  "questions": [
-    "Question 1?",
-    "Question 2?"
-  ]
-}}
-
-Rules:
-- Do not include any explanations, answers, or commentary, only the questions.
-- Questions should be specific and realistic for real interviews.
-- Mix conceptual questions with a few practical or scenario-based questions.
-- Do not wrap the JSON in markdown or backticks.
-
-TARGET ROLE:
-{target_role}
-
-FOCUS_SKILLS:
-{skills_part}
-""".strip()
-
-
-def generate_mock_questions(target_role: str, skills: list[str] | None = None) -> list[str]:
-    api_key = os.getenv("GEMINI_API_KEY")
-    if not api_key:
-        return []
-
-    try:
-        genai.configure(api_key=api_key)
-        model = genai.GenerativeModel("gemini-2.5-flash")
-        prompt = _build_mock_questions_prompt(target_role, skills)
-        response = model.generate_content(
-            prompt,
-            generation_config=genai.types.GenerationConfig(
-                temperature=0.3,
-                max_output_tokens=1024,
-            ),
-        )
-        raw = response.text.strip()
-        raw = re.sub(r"^```(?:json)?\s*\n?", "", raw, flags=re.MULTILINE)
-        raw = re.sub(r"\n?```\s*$", "", raw, flags=re.MULTILINE)
-        raw = raw.strip()
-        data = json.loads(raw)
-        questions = data.get("questions")
-        if isinstance(questions, list):
-            return [q for q in questions if isinstance(q, str) and q.strip()]
-        return []
-    except Exception as e:
-        print(f"[Gemini mock questions error] {e}")
-        return []
 
 
 def _rule_based_fallback(
@@ -303,3 +279,6 @@ def analyze_gap(
         result.suggested_jobs = suggested
 
     return result
+
+
+

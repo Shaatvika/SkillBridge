@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 env_file = Path(__file__).parent.parent / ".env"
 load_dotenv(env_file)
 
-from app.analyzer import analyze_gap, generate_mock_questions
+from app.analyzer import analyze_gap
 from app.models import AnalyzeRequest, AnalyzeResponse, JobDescription
 
 app = FastAPI(
@@ -27,11 +27,6 @@ app.add_middleware(
 )
 
 DATA_DIR = Path(__file__).parent.parent / "data"
-
-
-class MockQuestionsRequest(BaseModel):
-    target_role: str
-    focus_skills: Optional[list[str]] = None
 
 
 @app.get("/")
@@ -76,15 +71,6 @@ def analyze(request: AnalyzeRequest):
         experience_level=request.experience_level,
     )
     return result
-
-
-@app.post("/mock-questions")
-def mock_questions(body: MockQuestionsRequest):
-    target_role = body.target_role.strip()
-    if not target_role:
-        raise HTTPException(status_code=400, detail="Target role cannot be empty.")
-    questions = generate_mock_questions(target_role=target_role, skills=body.focus_skills)
-    return {"target_role": target_role, "questions": questions}
 
 
 @app.get("/sample-resumes")
