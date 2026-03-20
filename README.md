@@ -58,7 +58,7 @@ pytest tests/ -v
 skillbridge/
 ├── app/
 │   ├── __init__.py
-│   ├── analyzer.py         # Core gap analysis + Gemini + mock questions
+│   ├── analyzer.py         # Core gap analysis + Gemini 
 │   ├── courses.py          # SerpAPI course/certification enrichment
 │   ├── jobs.py             # SerpAPI job search + experience filtering
 │   ├── main.py             # FastAPI app and API endpoints
@@ -89,7 +89,6 @@ skillbridge/
 | GET    | `/roles`           | List available job titles                                         |
 | GET    | `/jobs?role=...`   | Get job descriptions (filterable by role substring)               |
 | POST   | `/analyze`         | Core: resume + role → gap analysis, learning roadmap, job leads   |
-| POST   | `/mock-questions`  | Generate role‑specific mock interview questions using Gemini      |
 | GET    | `/sample-resumes`  | Synthetic resumes for quick experiments
 
 ### Core Flow
