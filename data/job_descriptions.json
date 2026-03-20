@@ -1,0 +1,66 @@
+[
+  {
+    "id": "jd_001",
+    "title": "Software Engineer",
+    "company": "TechCorp",
+    "required_skills": ["Python", "REST APIs", "Git", "SQL", "Data Structures", "Algorithms"],
+    "nice_to_have": ["Docker", "Kubernetes", "AWS", "CI/CD"],
+    "description": "Build and maintain scalable backend services. Collaborate with cross-functional teams."
+  },
+  {
+    "id": "jd_002",
+    "title": "Machine Learning Engineer",
+    "company": "AI Startup",
+    "required_skills": ["Python", "PyTorch", "scikit-learn", "SQL", "Statistics", "Data Preprocessing"],
+    "nice_to_have": ["MLflow", "Spark", "AWS SageMaker", "Kubernetes", "Transformers"],
+    "description": "Train and deploy ML models at scale. Work on cutting-edge NLP and vision systems."
+  },
+  {
+    "id": "jd_003",
+    "title": "Cloud Engineer",
+    "company": "CloudSystems Inc",
+    "required_skills": ["AWS", "Terraform", "Linux", "Networking", "Python", "CI/CD"],
+    "nice_to_have": ["Kubernetes", "Ansible", "Prometheus", "Go", "Security"],
+    "description": "Design and manage cloud infrastructure. Ensure reliability and cost efficiency."
+  },
+  {
+    "id": "jd_004",
+    "title": "Full Stack Developer",
+    "company": "ProductCo",
+    "required_skills": ["JavaScript", "React", "Node.js", "SQL", "REST APIs", "Git"],
+    "nice_to_have": ["TypeScript", "GraphQL", "Redis", "Docker", "Testing"],
+    "description": "Own features end-to-end across a modern web stack. Ship fast and iterate."
+  },
+  {
+    "id": "jd_005",
+    "title": "Data Engineer",
+    "company": "DataFlow",
+    "required_skills": ["Python", "SQL", "Spark", "ETL Pipelines", "Data Warehousing", "Airflow"],
+    "nice_to_have": ["dbt", "Kafka", "Snowflake", "AWS Glue", "Scala"],
+    "description": "Build robust data pipelines and warehouse infrastructure."
+  },
+  {
+    "id": "jd_006",
+    "title": "Cybersecurity Analyst",
+    "company": "SecureNet",
+    "required_skills": ["Network Security", "SIEM", "Incident Response", "Linux", "Vulnerability Assessment", "Python"],
+    "nice_to_have": ["CISSP", "Penetration Testing", "Splunk", "Threat Intelligence", "Forensics"],
+    "description": "Monitor, detect, and respond to security threats across enterprise systems."
+  },
+  {
+    "id": "jd_007",
+    "title": "DevOps Engineer",
+    "company": "DeployFast",
+    "required_skills": ["Docker", "Kubernetes", "CI/CD", "Linux", "Git", "Monitoring"],
+    "nice_to_have": ["Terraform", "Helm", "Python", "AWS", "Go"],
+    "description": "Improve developer experience and system reliability through automation."
+  },
+  {
+    "id": "jd_008",
+    "title": "Backend Engineer",
+    "company": "ScaleUp",
+    "required_skills": ["Python", "REST APIs", "PostgreSQL", "Redis", "Git", "System Design"],
+    "nice_to_have": ["Go", "Kafka", "Docker", "gRPC", "AWS"],
+    "description": "Design high-throughput backend systems serving millions of users."
+  }
+]

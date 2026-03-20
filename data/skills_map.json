@@ -1,0 +1,36 @@
+{
+  "categories": {
+    "languages": ["Python", "JavaScript", "TypeScript", "Java", "Go", "Rust", "C++", "C", "Ruby", "Scala", "R", "Bash"],
+    "frontend": ["React", "Vue", "Angular", "HTML", "CSS", "Next.js", "Redux", "GraphQL", "Tailwind"],
+    "backend": ["Node.js", "FastAPI", "Django", "Flask", "Express", "Spring Boot", "REST APIs", "gRPC"],
+    "databases": ["SQL", "PostgreSQL", "MySQL", "MongoDB", "Redis", "Elasticsearch", "Snowflake", "DynamoDB"],
+    "cloud": ["AWS", "GCP", "Azure", "Terraform", "Ansible", "CloudFormation"],
+    "devops": ["Docker", "Kubernetes", "CI/CD", "Git", "Linux", "Helm", "Prometheus", "Grafana", "Airflow"],
+    "data": ["pandas", "NumPy", "Spark", "Kafka", "ETL Pipelines", "Data Warehousing", "dbt", "Airflow"],
+    "ml": ["PyTorch", "TensorFlow", "scikit-learn", "Transformers", "MLflow", "Statistics", "Data Preprocessing", "AWS SageMaker"],
+    "security": ["Network Security", "SIEM", "Incident Response", "Vulnerability Assessment", "Penetration Testing", "Threat Intelligence", "Splunk", "Forensics"],
+    "fundamentals": ["Data Structures", "Algorithms", "System Design", "Networking", "Operating Systems"]
+  },
+  "learning_resources": {
+    "Python": {"free": "Python.org official tutorial", "paid": "Python Bootcamp on Udemy"},
+    "React": {"free": "React official docs / react.dev", "paid": "Scrimba React course"},
+    "AWS": {"free": "AWS Skill Builder free tier", "paid": "A Cloud Guru"},
+    "Docker": {"free": "Docker getting started docs", "paid": "KodeKloud Docker course"},
+    "Kubernetes": {"free": "Kubernetes.io tutorials", "paid": "CKA prep on Udemy"},
+    "SQL": {"free": "SQLZoo / Mode Analytics", "paid": "DataCamp SQL track"},
+    "PyTorch": {"free": "PyTorch official tutorials", "paid": "fast.ai deep learning course"},
+    "scikit-learn": {"free": "scikit-learn user guide", "paid": "Hands-On ML book (O'Reilly)"},
+    "System Design": {"free": "System Design Primer (GitHub)", "paid": "Grokking System Design"},
+    "Data Structures": {"free": "NeetCode.io", "paid": "AlgoExpert"},
+    "Algorithms": {"free": "NeetCode.io", "paid": "AlgoExpert"},
+    "Terraform": {"free": "HashiCorp Learn (free)", "paid": "HashiCorp Terraform Associate prep"},
+    "Linux": {"free": "Linux Journey (linuxjourney.com)", "paid": "Linux Foundation courses"},
+    "CI/CD": {"free": "GitHub Actions docs", "paid": "KodeKloud CI/CD course"},
+    "Network Security": {"free": "OWASP resources", "paid": "CompTIA Security+ prep"},
+    "Spark": {"free": "Apache Spark official docs", "paid": "Databricks learning path"},
+    "Go": {"free": "Tour of Go (go.dev)", "paid": "Go bootcamp on Udemy"},
+    "TypeScript": {"free": "TypeScript official handbook", "paid": "TypeScript Udemy courses"},
+    "GraphQL": {"free": "GraphQL.org tutorial", "paid": "The Road to GraphQL (book)"},
+    "Redis": {"free": "Redis University (free)", "paid": "Redis in Action (book)"}
+  }
+}

@@ -1,0 +1,46 @@
+[
+  {
+    "id": "resume_001",
+    "name": "Alex Chen",
+    "education": "BS Computer Science, State University, 2024",
+    "experience": [
+      {"role": "Software Intern", "company": "LocalStartup", "duration": "3 months", "bullets": ["Built REST APIs in Python", "Wrote SQL queries for reporting"]}
+    ],
+    "skills": ["Python", "SQL", "Git", "Java", "HTML", "CSS"],
+    "projects": ["Personal blog site (HTML/CSS)", "CLI todo app (Python)"],
+    "certifications": []
+  },
+  {
+    "id": "resume_002",
+    "name": "Priya Sharma",
+    "education": "MS Data Science, Tech University, 2023",
+    "experience": [
+      {"role": "Research Assistant", "company": "University Lab", "duration": "1 year", "bullets": ["Ran ML experiments with scikit-learn", "Preprocessed large datasets with pandas"]}
+    ],
+    "skills": ["Python", "scikit-learn", "pandas", "NumPy", "SQL", "Statistics", "R"],
+    "projects": ["Sentiment analysis on Twitter data", "Housing price prediction model"],
+    "certifications": ["Coursera Machine Learning Certificate"]
+  },
+  {
+    "id": "resume_003",
+    "name": "Jordan Lee",
+    "education": "BS Information Systems, Community College, 2024",
+    "experience": [
+      {"role": "IT Support", "company": "RetailChain", "duration": "2 years", "bullets": ["Managed Linux servers", "Wrote Python scripts for automation"]}
+    ],
+    "skills": ["Linux", "Python", "Networking", "Git", "Bash"],
+    "projects": ["Home lab Kubernetes cluster", "Automated backup scripts"],
+    "certifications": ["AWS Cloud Practitioner"]
+  },
+  {
+    "id": "resume_004",
+    "name": "Maria Garcia",
+    "education": "BS Computer Engineering, State Tech, 2023",
+    "experience": [
+      {"role": "Junior Developer", "company": "AgencyXYZ", "duration": "1 year", "bullets": ["Built React components", "Integrated REST APIs"]}
+    ],
+    "skills": ["JavaScript", "React", "HTML", "CSS", "Git", "REST APIs"],
+    "projects": ["E-commerce frontend clone", "Weather app with OpenWeather API"],
+    "certifications": []
+  }
+]
