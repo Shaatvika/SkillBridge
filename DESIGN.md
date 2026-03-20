@@ -22,6 +22,7 @@ Students and professionals looking to switch careers often face a gap between th
 ---
 
 ## 2. High‑Level Architecture
+![Architecture Diagram](architecture.png)
 
 The solution has three main pieces:
 
