@@ -93,26 +93,7 @@ skillbridge/
 | GET    | `/sample-resumes`  | Synthetic resumes for quick experiments
 
 ### Core Flow
-
-```
-User fills structured resume form + selects target role + experience level
-        ↓
-Frontend composes a resume-like text and POSTs /analyze
-        ↓
-Backend loads matching JDs from synthetic dataset
-        ↓
-Try Gemini (gemini-2.5-flash) for structured JSON gap analysis
-    ├─ Success → ai_powered: true
-    └─ Failure / no key → rule-based keyword fallback (ai_powered: false)
-        ↓
-Enrich roadmap via SerpAPI: courses + optional certifications per skill
-        ↓
-Fetch relevant job postings via SerpAPI (experience-aware filtering)
-        ↓
-Return: missing_skills, transferable_skills, roadmap[], suggested_jobs[], summary
-        ↓
-Frontend renders skills, learning roadmap, and relevant job postings
-```
+![Data Flow](dataflow.png)
 
 ---
 
