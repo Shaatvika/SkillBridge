@@ -29,7 +29,7 @@ The solution has three main pieces:
 1. **Backend API (FastAPI)**
    - Endpoints for skills gap analysis, job/role metadata, sample resumes, and mock interview questions.
    - Integrates:
-     - Google Gemini for AI‑powered analysis and mock interview questions.
+     - Google Gemini for AI‑powered analysis
      - SerpAPI to fetch course/certification dynamically along with live job postings.
    - Provides a deterministic, rule‑based fallback when AI or SerpAPI is unavailable.
 
@@ -39,7 +39,6 @@ The solution has three main pieces:
      - Missing/transferable skills.
      - Learning roadmap.
      - Relevant job postings.
-     - Mock interview questions.
 
 3. **Synthetic Data Layer**
    - `job_descriptions.json` – representative roles with required/nice‑to‑have skills.
@@ -76,15 +75,6 @@ Endpoints:
     3. Filter JDs whose `title` contains the target role string (fallback to all if none match).
     4. Call `analyze_gap` with `resume_text`, `target_role`, `matching_jds`, `experience_level`.
     5. Return `AnalyzeResponse`.
-
-- `POST /mock-questions`
-  - Input: `MockQuestionsRequest`:
-    - `target_role: str`
-    - `focus_skills: Optional[list[str]]`
-  - Steps:
-    1. Validate non‑empty `target_role`.
-    2. Call `generate_mock_questions(target_role, focus_skills)`.
-    3. Return `{ target_role, questions: [...] }`.
 
 - `GET /sample-resumes`
   - Returns `data/sample_resumes.json` for demos and quick testing.
@@ -207,22 +197,6 @@ This guarantees a reasonable roadmap even without AI.
 
 ---
 
-## 5. Mock Interview Questions
-
-Implemented in `app/analyzer.py` and exposed via `/mock-questions`.
-
-- `_build_mock_questions_prompt(target_role, skills=None)`:
-  - Asks Gemini (as an "experienced technical interviewer") to generate 8–10 realistic questions.
-  - Biases towards `skills` when provided, while still covering fundamentals.
-  - Requires JSON shape: `{ "questions": ["Question 1?", ...] }`.
-
-- `generate_mock_questions(target_role, skills=None) -> list[str]`:
-  - Strips fences and parses JSON.
-  - Validates a list of strings.
-  - Returns `[]` on any error.
-
-The frontend calls this via `POST /mock-questions` to render a simple mock interview prep section.
-
 Each module is decoupled from the other to ensure failure of one does not break the flow of the application
 ---
 
@@ -248,17 +222,11 @@ Each module is decoupled from the other to ensure failure of one does not break 
      - Learning roadmap with resources and recommended certs.
      - Relevant job postings if present.
 
-4. `handleMockQuestions`:
-   - Uses `targetRole` and, when available, `result.transferable_skills` as `focus_skills`.
-   - Calls `POST /api/mock-questions`.
-   - Renders an ordered list of questions with loading/error states.
-
 ### 6.2. Layout & UX
 
 - Single‑page layout with sticky header and card‑based sections.
 - Clear separation:
   - Form → Analyze → Results.
-  - Additional "Mock interview questions" section for interview prep.
 
 ---
 
@@ -271,7 +239,6 @@ Tests cover:
   - Rule‑based fallback path when no key or on error.
   - Edge cases: empty inputs, unknown roles, resumes that already cover all skills.
   - Ensuring roadmap is capped at 6 items.
-  - Ensures target role is present while calling mock_questions API.
 
 - Supporting endpoints:
   - `/roles`, `/jobs`, `/sample-resumes` basic behavior.
@@ -288,6 +255,7 @@ Tests cover:
 - Due to semantic skill matching and free-tier APIs, the summary might not be the most accurate
 - Synthetic JDs cover a limited set of roles; expanding them or integrating a real job feed would improve realism.
 - Resume has to be typed in manually as PDF parsing and extraction not supported
+- Add mock interview questions
 
 Despite these tradeoffs, the design demonstrates:
 
