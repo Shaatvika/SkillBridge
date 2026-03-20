@@ -1,7 +1,7 @@
 # SkillBridge Career Navigator
 
 > AI-powered skill gap analysis and personalized learning roadmap generator.
-
+Demo Video: https://www.youtube.com/watch?v=2iGeQhy-src
 ---
 
 **Candidate Name**: Srishaatvika Selvam 
@@ -92,7 +92,7 @@ skillbridge/
 | GET    | `/sample-resumes`  | Synthetic resumes for quick experiments
 
 ### Core Flow
-![Data Flow](dataflow.png)
+![Dataflow Diagram](dataflow.png)
 
 ---
 
